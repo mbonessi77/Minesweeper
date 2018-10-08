@@ -9,6 +9,7 @@ public class TileScript : MonoBehaviour
     public SpriteRenderer bomb;
     public TextMesh number;
     private int numBombs;
+    private bool hasBomb;
 
 	// Use this for initialization
 	void Start ()
@@ -24,29 +25,32 @@ public class TileScript : MonoBehaviour
         number.text = num.ToString();
     }
 
-    //Activate the bomb sprite
+    //Gives the bomb a tile if true
     public void SetBomb(bool dead)
     {
-        if (dead)
-        {
-            bomb.enabled = true;
-        }
-        else
-        {
-            bomb.enabled = false;
-        }
+        hasBomb = dead;
     }
 
     //Get the status of bomb.enabled
     public bool GetBomb()
     {
-        return bomb.enabled;
+        return hasBomb;
     }
 
     private void OnMouseDown()
     {
+        //Turn off the renderer to the tile
         MeshRenderer m = GetComponent<MeshRenderer>();
         m.enabled = false;
-        SetText(8);
+
+        //
+        if (!hasBomb)
+        {
+            SetText(numBombs);
+        }
+        else
+        {
+            bomb.enabled = true;
+        }
     }
 }

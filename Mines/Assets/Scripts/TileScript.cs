@@ -47,21 +47,36 @@ public class TileScript : MonoBehaviour
         return hasBomb;
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        //Turn off the renderer to the tile
-        MeshRenderer m = GetComponent<MeshRenderer>();
-        m.enabled = false;
+        if (Input.GetMouseButtonDown(0) && number.text != "X")
+        {
+            MeshRenderer m = GetComponent<MeshRenderer>();
+            m.enabled = false;
 
-        //Check if this tile has a bomb or not
-        if (!hasBomb)
-        {
-            SetText(numBombs);
+            //Check if this tile has a bomb or not
+            if (!hasBomb)
+            {
+                SetText(numBombs);
+            }
+            else
+            {
+                bomb.enabled = true;
+                gameOver = true;
+            }
         }
-        else
+        if (Input.GetMouseButtonDown(1))
         {
-            bomb.enabled = true;
-            gameOver = true;
+            if (number.text != "X")
+            {
+                number.text = "X";
+            }
+            else
+            {
+                number.text = "";
+            }
         }
+        //Turn off the renderer to the tile
+        
     }
 }

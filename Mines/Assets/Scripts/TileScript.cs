@@ -10,28 +10,38 @@ public class TileScript : MonoBehaviour
     public TextMesh number;
     private int numBombs;
     private bool hasBomb;
+    private bool gameOver;
 
 	// Use this for initialization
 	void Start ()
     {
         number.text = "";
         bomb.enabled = false;
-        numBombs = 0;
+        gameOver = false;
 	}
 
-    //Set the text to how many bombs surround the current tile
+    //Setters
     public void SetText(int num)
     {
         number.text = num.ToString();
     }
 
-    //Gives the bomb a tile if true
     public void SetBomb(bool dead)
     {
         hasBomb = dead;
     }
 
-    //Get the status of bomb.enabled
+    public void SetNumBombs(int num)
+    {
+        numBombs = num;
+    }
+
+    //Getters
+    public int GetNumBombs()
+    {
+        return numBombs;
+    }
+
     public bool GetBomb()
     {
         return hasBomb;
@@ -43,7 +53,7 @@ public class TileScript : MonoBehaviour
         MeshRenderer m = GetComponent<MeshRenderer>();
         m.enabled = false;
 
-        //
+        //Check if this tile has a bomb or not
         if (!hasBomb)
         {
             SetText(numBombs);
@@ -51,6 +61,7 @@ public class TileScript : MonoBehaviour
         else
         {
             bomb.enabled = true;
+            gameOver = true;
         }
     }
 }

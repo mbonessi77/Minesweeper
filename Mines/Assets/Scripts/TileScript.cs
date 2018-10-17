@@ -10,14 +10,12 @@ public class TileScript : MonoBehaviour
     public TextMesh number;
     private int numBombs;
     private bool hasBomb;
-    private bool gameOver;
 
 	// Use this for initialization
 	void Start ()
     {
         number.text = "";
         bomb.enabled = false;
-        gameOver = false;
 	}
 
     //Setters
@@ -47,11 +45,6 @@ public class TileScript : MonoBehaviour
         return hasBomb;
     }
 
-    public bool GetGameOver()
-    {
-        return gameOver;
-    }
-
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0) && number.text != "X")
@@ -68,7 +61,6 @@ public class TileScript : MonoBehaviour
             else
             {
                 bomb.enabled = true;
-                gameOver = true;
             }
         }
         //Mark the tile with a right click

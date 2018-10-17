@@ -8,6 +8,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] private GameObject tile;
     private GameObject[,] tiles = new GameObject[8, 14];
     private int totalBombs;
+    private bool gameOver;
 
     // Use this for initialization
     void Start()
@@ -16,11 +17,38 @@ public class TileManager : MonoBehaviour
         SetTiles();
         SetBombs();
         SetSurroundingBombs();
+        gameOver = false;
     }
 
-    //Show the whole grid's data
+    void Update()
+    {
+        CheckGameOver();
+        if (gameOver)
+        {
+            EndGame();
+        }
+    }
+
+    //Check to see if the player has hit a bomb
+    void CheckGameOver()
+    {
+        for(int i = 0; i < tiles.GetLength(1); i++)
+        {
+            for(int k = 0; k < tiles.GetLength(0); k++)
+            {
+                if(tiles[k, i].GetComponent<TileScript>().bomb.enabled)
+                {
+                    gameOver = true;
+                    break;
+                }
+            }
+        }
+    }
+    
+    //Show the whole grid's data once the game has ended
     void EndGame()
     {
+        Debug.Log("Game has ended");
         for (int i = 0; i < tiles.GetLength(1); i++)
         {
             for (int k = 0; k < tiles.GetLength(0); k++)
@@ -32,7 +60,7 @@ public class TileManager : MonoBehaviour
                 }
                 else
                 {
-                    tiles[k, i].GetComponent<TileScript>().SetNumBombs(GetSurroundingBombs(i, k));
+                    tiles[k, i].GetComponent<TileScript>().number.text = GetSurroundingBombs(i, k).ToString();
                 }
             }
         }

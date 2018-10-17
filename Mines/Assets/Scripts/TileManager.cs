@@ -14,11 +14,28 @@ public class TileManager : MonoBehaviour
     {
         totalBombs = 0;
         SetTiles();
-        while (totalBombs < 20)
-        {
-            SetBombs();
-        }
+        SetBombs();
         SetSurroundingBombs();
+    }
+
+    //Show the whole grid's data
+    void EndGame()
+    {
+        for (int i = 0; i < tiles.GetLength(1); i++)
+        {
+            for (int k = 0; k < tiles.GetLength(0); k++)
+            {
+                tiles[k, i].GetComponent<MeshRenderer>().enabled = false;
+                if (tiles[k, i].GetComponent<TileScript>().GetBomb())
+                {
+                    tiles[k, i].GetComponent<TileScript>().bomb.enabled = true;
+                }
+                else
+                {
+                    tiles[k, i].GetComponent<TileScript>().SetNumBombs(GetSurroundingBombs(i, k));
+                }
+            }
+        }
     }
 
     //Populate the board with clickable tiles
@@ -33,19 +50,27 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    //Place 20-30 bombs randomly on the tiles
+    //Place 20 bombs randomly on the tiles
     void SetBombs()
     {
         for (int i = 0; i < tiles.GetLength(1); i++)
         {
             for (int k = 0; k < tiles.GetLength(0); k++)
             {
-                if (Random.Range(0, 10) == 7 && !tiles[k, i].GetComponent<TileScript>().GetBomb())
+                if (totalBombs == 20)
+                {
+                    break;
+                }
+                if (Random.Range(0, 5) == 1 && !tiles[k, i].GetComponent<TileScript>().GetBomb())
                 {
                     tiles[k, i].GetComponent<TileScript>().SetBomb(true);
                     totalBombs++;
                 }
             }
+        }
+        if (totalBombs < 20)
+        {
+            SetBombs();
         }
     }
 

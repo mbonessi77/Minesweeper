@@ -47,10 +47,16 @@ public class TileScript : MonoBehaviour
         return hasBomb;
     }
 
+    public bool GetGameOver()
+    {
+        return gameOver;
+    }
+
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0) && number.text != "X")
         {
+            //Turn off the renderer for the tile
             MeshRenderer m = GetComponent<MeshRenderer>();
             m.enabled = false;
 
@@ -65,6 +71,7 @@ public class TileScript : MonoBehaviour
                 gameOver = true;
             }
         }
+        //Mark the tile with a right click
         if (Input.GetMouseButtonDown(1))
         {
             if (number.text != "X")
@@ -76,7 +83,6 @@ public class TileScript : MonoBehaviour
                 number.text = "";
             }
         }
-        //Turn off the renderer to the tile
         
     }
 }

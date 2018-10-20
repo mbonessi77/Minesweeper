@@ -9,11 +9,13 @@ public class TileManager : MonoBehaviour
     private GameObject[,] tiles = new GameObject[8, 14];
     private int totalBombs;
     private bool gameOver;
+    private float timer;
 
     // Use this for initialization
     void Start()
     {
         totalBombs = 0;
+        timer = 0f;
         SetTiles();
         SetBombs();
         SetSurroundingBombs();
@@ -23,9 +25,16 @@ public class TileManager : MonoBehaviour
     void Update()
     {
         CheckGameOver();
+
+        if (!gameOver)
+        {
+            timer += Time.deltaTime;
+        }
+
         if (gameOver)
         {
             EndGame();
+            timer += 0;
         }
     }
 

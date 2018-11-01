@@ -1,40 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TileManager : MonoBehaviour
 {
     //Variable declaration
     [SerializeField] private GameObject tile;
+    [SerializeField] private Canvas endCanvas;
+    [SerializeField] private Text timeText;
     private GameObject[,] tiles = new GameObject[8, 14];
     private int totalBombs;
-    private bool gameOver;
-    private float timer;
+    private static bool gameOver;
+    private static float timer;
 
     // Use this for initialization
     void Start()
     {
-        totalBombs = 0;
-        timer = 0f;
-        SetTiles();
-        SetBombs();
-        SetSurroundingBombs();
-        gameOver = false;
+        timeText.text = timer.ToString("F2");
+        if (!gameOver)
+        {
+            SetTiles();
+            SetBombs();
+            SetSurroundingBombs();
+            endCanvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("Timer from previous scene: " + timer.ToString("F2"));
+            endCanvas.gameObject.SetActive(true);
+            totalBombs = 0;
+            timer += 0f;
+        }
     }
 
     void Update()
     {
-        CheckGameOver();
-
-        if (!gameOver)
+        timeText.text = timer.ToString("F2");
+        if (gameOver == false)
         {
             timer += Time.deltaTime;
+            CheckGameOver();
         }
-
-        if (gameOver)
+        else
         {
-            EndGame();
             timer += 0;
+            StartCoroutine(LoadEndScreen());
         }
     }
 
@@ -48,6 +60,7 @@ public class TileManager : MonoBehaviour
                 if(tiles[k, i].GetComponent<TileScript>().bomb.enabled)
                 {
                     gameOver = true;
+                    EndGame();
                     break;
                 }
             }
@@ -57,7 +70,6 @@ public class TileManager : MonoBehaviour
     //Show the whole grid's data once the game has ended
     void EndGame()
     {
-        Debug.Log("Game has ended");
         for (int i = 0; i < tiles.GetLength(1); i++)
         {
             for (int k = 0; k < tiles.GetLength(0); k++)
@@ -333,5 +345,11 @@ public class TileManager : MonoBehaviour
             }
         }
         return num;
+    }
+
+    IEnumerator LoadEndScreen()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("End Screen");
     }
 }

@@ -18,7 +18,6 @@ public class TileManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        timeText.text = timer.ToString("F2");
         if (!gameOver)
         {
             SetTiles();
@@ -28,7 +27,6 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Timer from previous scene: " + timer.ToString("F2"));
             endCanvas.gameObject.SetActive(true);
             totalBombs = 0;
             timer += 0f;

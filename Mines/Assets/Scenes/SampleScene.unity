@@ -301,6 +301,12 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 223613233124060510, guid: 3b64c48f39eeada44b700ea0c641fe61,
     type: 2}
   m_PrefabInternal: {fileID: 101428959}
+--- !u!114 &1028934736 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114245534756252438, guid: 3b64c48f39eeada44b700ea0c641fe61,
+    type: 2}
+  m_PrefabInternal: {fileID: 101428959}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1205892256
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +418,11 @@ Prefab:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 204632206}
+    - target: {fileID: 114346283783638086, guid: 7e22c7f5269b930438534d2ffc7523a0,
+        type: 2}
+      propertyPath: gameOverText
+      value: 
+      objectReference: {fileID: 1028934736}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e22c7f5269b930438534d2ffc7523a0, type: 2}
   m_IsPrefabAsset: 0

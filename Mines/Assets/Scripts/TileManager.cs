@@ -10,10 +10,8 @@ public class TileManager : MonoBehaviour
     [SerializeField] private GameObject tile;
     [SerializeField] private Canvas endCanvas;
     [SerializeField] private Text timeText;
-    [SerializeField] private Text gameOverText;
     private GameObject[,] tiles = new GameObject[8, 14];
     private int totalBombs;
-    private int totalTiles;
     private static bool gameOver;
     private static float timer;
 
@@ -25,12 +23,10 @@ public class TileManager : MonoBehaviour
             SetTiles();
             SetBombs();
             SetSurroundingBombs();
-            gameOverText.text = "You Win!";
             endCanvas.gameObject.SetActive(false);
         }
         else
         {
-            gameOverText.text = "Game Over";
             endCanvas.gameObject.SetActive(true);
             totalBombs = 0;
             timer += 0f;
@@ -50,13 +46,6 @@ public class TileManager : MonoBehaviour
             timer += 0;
             StartCoroutine(LoadEndScreen());
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            gameOver = false;
-            timer = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
     }
 
     //Check to see if the player has hit a bomb
@@ -71,14 +60,6 @@ public class TileManager : MonoBehaviour
                     gameOver = true;
                     EndGame();
                     break;
-                }
-                else
-                {
-                    if (tiles[k, i].GetComponent<TileScript>().GetTilesLeft() == 0)
-                    {
-                        timer += 0;
-                        StartCoroutine(LoadEndScreen());
-                    }
                 }
             }
         }

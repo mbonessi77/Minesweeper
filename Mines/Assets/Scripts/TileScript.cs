@@ -10,12 +10,12 @@ public class TileScript : MonoBehaviour
     public TextMesh number;
     private int numBombs;
     private bool hasBomb;
-    private int numTiles;
+    private static int numTiles;
 
 	// Use this for initialization
 	void Start ()
     {
-        numTiles = 14 * 8;
+        numTiles = 14 * 8 - 20;
         number.text = "";
         bomb.enabled = false;
 	}
@@ -34,6 +34,11 @@ public class TileScript : MonoBehaviour
     public void SetNumBombs(int num)
     {
         numBombs = num;
+    }
+
+    public void SetNumTiles(int num)
+    {
+        numTiles = num;
     }
 
     //Getters
@@ -65,6 +70,7 @@ public class TileScript : MonoBehaviour
             {
                 SetText(numBombs);
                 numTiles--;
+                Debug.Log(numTiles);
             }
             else
             {

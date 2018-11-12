@@ -27,15 +27,15 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            endCanvas.gameObject.SetActive(true);
             totalBombs = 0;
             timer += 0f;
+            endCanvas.gameObject.SetActive(true);
         }
     }
 
     void Update()
     {
-        timeText.text = timer.ToString("F2");
+        timeText.text = "Final Time: " + timer.ToString("F2");
         if (gameOver == false)
         {
             timer += Time.deltaTime;
@@ -44,7 +44,30 @@ public class TileManager : MonoBehaviour
         else
         {
             timer += 0;
+            gameOver = true;
             StartCoroutine(LoadEndScreen());
+        }
+
+        if(tiles[0, 0].GetComponent<TileScript>().GetTilesLeft() == 0)
+        {
+            timer += 0;
+            StartCoroutine(LoadEndScreen());
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("SampleScene");
+            gameOver = false;
+            timer = 0;
+            tiles[0, 0].gameObject.GetComponent<TileScript>().SetNumBombs(14 * 8 - 20);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 

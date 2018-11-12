@@ -210,6 +210,15 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1181993283007120, guid: 3b64c48f39eeada44b700ea0c641fe61, type: 2}
+      propertyPath: m_Name
+      value: Game Over Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 114245534756252438, guid: 3b64c48f39eeada44b700ea0c641fe61,
+        type: 2}
+      propertyPath: m_Text
+      value: Game Over
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b64c48f39eeada44b700ea0c641fe61, type: 2}
   m_IsPrefabAsset: 0

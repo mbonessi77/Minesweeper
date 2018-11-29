@@ -421,6 +421,7 @@ Prefab:
       propertyPath: timeText
       value: 
       objectReference: {fileID: 204632206}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114017874453555398, guid: 7e22c7f5269b930438534d2ffc7523a0, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 7e22c7f5269b930438534d2ffc7523a0, type: 2}
   m_IsPrefabAsset: 0

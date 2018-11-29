@@ -68,9 +68,12 @@ public class TileScript : MonoBehaviour
             //Check if this tile has a bomb or not
             if (!hasBomb)
             {
+                if(number.text == "")
+                {
+                    numTiles--;
+                    Debug.Log(numTiles);
+                }
                 SetText(numBombs);
-                numTiles--;
-                Debug.Log(numTiles);
             }
             else
             {

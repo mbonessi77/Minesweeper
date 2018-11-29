@@ -18,6 +18,7 @@ public class TileManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Debug.Log(gameOver);
         if (!gameOver)
         {
             SetTiles();
@@ -27,7 +28,6 @@ public class TileManager : MonoBehaviour
         }
         else
         {
-            totalBombs = 0;
             timer += 0f;
             endCanvas.gameObject.SetActive(true);
         }
@@ -36,7 +36,26 @@ public class TileManager : MonoBehaviour
     void Update()
     {
         timeText.text = "Final Time: " + timer.ToString("F2");
-        if (gameOver == false)
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            //SceneManager.LoadScene("SampleScene");
+            gameOver = false;
+            timer = 0;
+            SceneManager.LoadScene("SampleScene");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        if (!gameOver)
         {
             timer += Time.deltaTime;
             CheckGameOver();
@@ -48,26 +67,11 @@ public class TileManager : MonoBehaviour
             StartCoroutine(LoadEndScreen());
         }
 
-        if(tiles[0, 0].GetComponent<TileScript>().GetTilesLeft() == 0)
+        if (tiles[0, 0].GetComponent<TileScript>().GetTilesLeft() == 0)
         {
             timer += 0;
+            gameOver = true;
             StartCoroutine(LoadEndScreen());
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("SampleScene");
-            gameOver = false;
-            timer = 0;
-            tiles[0, 0].gameObject.GetComponent<TileScript>().SetNumBombs(14 * 8 - 20);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("Main Menu");
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
 

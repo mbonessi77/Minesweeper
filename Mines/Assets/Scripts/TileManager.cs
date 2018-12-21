@@ -18,7 +18,7 @@ public class TileManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log(gameOver);
+
         if (!gameOver)
         {
             SetTiles();
@@ -167,206 +167,26 @@ public class TileManager : MonoBehaviour
     int GetSurroundingBombs(int i, int k)
     {
         int num = 0;
-        //If the current tile is on the left most column
-        if (k == 0)
+        for(int x = -1; x <= 1; x++)
         {
-            if (i == 0)
+            for(int y = -1; y <= 1; y++)
             {
-                if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
+                if(x == 0 && y == 0)
                 {
-                    num++;
+                    continue;
                 }
-                if (tiles[k + 1, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-            else if (i == tiles.GetLength(1) - 1)
-            {
-                if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k + 1, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-            else
-            {
-                if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k + 1, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k + 1, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-        }
 
-        //If the current tile is on the right most column
-        else if (k == tiles.GetLength(0) - 1)
-        {
-            if (i == 0)
-            {
-                if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k - 1, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-            else if (i == tiles.GetLength(1) - 1)
-            {
-                if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k - 1, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-            else
-            {
-                if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k - 1, i + 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k - 1, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-                if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-                {
-                    num++;
-                }
-            }
-        }
+                int checkX = i + x;
+                int checkY = k + y;
 
-        //If the current tile is on the bottom most row
-        else if (i == 0 && !(k == 0 || k == tiles.GetLength(0) - 1))
-        {
-            if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k - 1, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-        }
-
-        //If the current tile is on the top most row
-        else if (i == tiles.GetLength(1) - 1 && !(k == 0 || k == tiles.GetLength(0) - 1))
-        {
-            if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k - 1, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-        }
-
-        //If the current tile isn't on an edge or corner
-        else
-        {
-            if (tiles[k - 1, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k - 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k - 1, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i + 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k + 1, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
-            }
-            if (tiles[k, i - 1].GetComponent<TileScript>().GetBomb())
-            {
-                num++;
+                if (checkX >= 0 && checkX < tiles.GetLength(1) && checkY >= 0 && checkY < tiles.GetLength(0))
+                {
+                    if(tiles[checkY, checkX].GetComponent<TileScript>().GetBomb())
+                    {
+                        Debug.Log("Bomb found");
+                        num++;
+                    }
+                }
             }
         }
         return num;
